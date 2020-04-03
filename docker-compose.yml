@@ -1,10 +1,11 @@
+//fixme! not test
 version: '3.7'
 services:
 
   conflux-chain:
     build: .
     container_name: conflux-chain
-    image: liqiazero/conflux-chain:v0.1.10
+    image: liqiazero/conflux-chain:v0.2.4
     ports:
      - "12357:12357"
     deploy:
