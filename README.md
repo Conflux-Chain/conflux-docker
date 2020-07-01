@@ -1,60 +1,39 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/liqiazero/conflux-chain.svg)](https://hub.docker.com/r/liqiazero/conflux-chain/)
-[![Docker Stars](https://img.shields.io/docker/stars/liqiazero/conflux-chain.svg)](https://hub.docker.com/r/liqiazero/conflux-chain/)
+conflux-rust-docker
+===
+Conflux-rust is a implementation of the Conflux protocol with Rust.
+This is the docker image of Conflux-rust.
+
+# Warning
+Only use this image run a test/dev mode conflux-chain, don't use this for the formal online environment.
+When node runs up, it will init 10 genesis account, each with 1000 CFX.
 
 
-# warning
-## this repo run the conflux-chain node is the *test-mode*, just for test/dev environment, don't use this for the fromal online environment.
+## Tags
 
-# conflux-docker
-Docker-compose based configuration to easily run locally deployed dev/test network
+* 0.5.0.2
 
+## How to run
 
-if you don't use docker-compose, just docker && if you want build by yourself , just run:
-
-```bash
-docker build -t conflux-chain:v0.2.4 .
-
-```
-# USE:
-
-```bash
-docker pull liqiazero/conflux-chain:v0.2.4
-
-
-docker run --name conflux-chain  -p 12537:12537 -p 32323:32323 -p 32323:32323/udp -p 14629:14629 -p 12539:12539 -p 19629:19629 -d liqiazero/conflux-chain:v0.2.4
-
+```sh
+$ docker pull pana/conflux-rust
 ```
 
-if u want use docker-compose, just following:
+#### Simple run a node in frontground
 
-# docker-compose
-
-To start the network:
-
-```bash
-docker-compose up -d
+```sh
+$ docker run -p 12537:12537 --name cfx-node pana/conflux-rust
 ```
 
-To destroy the network:
+#### Run with local config and data 
+You can attach a folder on local machine to container, in which folder should include conflux config file, or even genesis_secret, genesis_account file。When conflux client run up, chain data will also save to this folder。
 
-```bash
-docker-compose down
+```sh
+$ docker run -p 12537:12537 -v $(pwd)/run:/root/run --name cfx-node pana/conflux-rust
 ```
 
-To cleanup the associated docker volumes, `-v` option could be used:
 
-```bash
-docker-compose down -v
-```
 
-More details can be found in [`docker-compose` documentation](https://docs.docker.com/compose/reference/).
 
-### Single Node Configuraiton
 
-To use a Single Node Configuration just append `-f singlenode.yml` to the docker-compose command. Example:
-
-```bash
-docker-compose -f singlenode.yml up
-```
 
 

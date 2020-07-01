@@ -1,0 +1,7 @@
+tmp.md
+scripts/node_modules
+scripts/nohup.out
+run/blockchain_db
+run/log
+run/net_config
+run/storage_db

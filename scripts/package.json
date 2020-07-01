@@ -1,0 +1,16 @@
+{
+  "name": "conflux-docker-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tx.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "js-conflux-sdk": "^0.10.1",
+    "toml": "^3.0.0"
+  }
+}

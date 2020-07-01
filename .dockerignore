@@ -1,0 +1,6 @@
+scripts/node_modules
+tmp.md
+run/blockchain_db
+run/log
+run/net_config
+run/storage_db

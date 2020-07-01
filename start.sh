@@ -1,2 +1,9 @@
 #!/bin/bash
-./conflux --config conflux.conf --public-address 127.0.0.1:32323 
+
+set -m
+
+./conflux.sh & 
+
+./gene_account.sh
+
+fg %1
