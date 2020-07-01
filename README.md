@@ -1,4 +1,4 @@
-conflux-rust-docker
+confluxchain/conflux-rust
 ===
 Conflux-rust is a implementation of the Conflux protocol with Rust.
 This is the docker image of Conflux-rust.
