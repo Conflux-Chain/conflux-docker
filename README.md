@@ -15,20 +15,20 @@ When node runs up, it will init 10 genesis account, each with 1000 CFX.
 ## How to run
 
 ```sh
-$ docker pull pana/conflux-rust
+$ docker pull confluxchain/conflux-rust
 ```
 
 #### Simple run a node in frontground
 
 ```sh
-$ docker run -p 12537:12537 --name cfx-node pana/conflux-rust
+$ docker run -p 12537:12537 --name cfx-node confluxchain/conflux-rust
 ```
 
 #### Run with local config and data 
 You can attach a folder on local machine to container, in which folder should include conflux config file, or even genesis_secret, genesis_account file。When conflux client run up, chain data will also save to this folder。
 
 ```sh
-$ docker run -p 12537:12537 -v $(pwd)/run:/root/run --name cfx-node pana/conflux-rust
+$ docker run -p 12537:12537 -v $(pwd)/run:/root/run --name cfx-node confluxchain/conflux-rust
 ```
 
 
