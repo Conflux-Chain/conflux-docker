@@ -7,7 +7,7 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2
     make && \
     make install
 WORKDIR /usr/src
-RUN git clone -b v0.5.0.2  --single-branch --depth 1 https://github.com/Conflux-Chain/conflux-rust.git conflux
+RUN git clone -b v0.5.0.4  --single-branch --depth 1 https://github.com/Conflux-Chain/conflux-rust.git conflux
 WORKDIR /usr/src/conflux
 RUN cargo install --path .
 
