@@ -24,3 +24,6 @@ So i need a script to:
 2. generate miner account random
 3. OP genesis account generate way
 
+
+keys location in docker: /root/.local/share/Conflux/keys
+

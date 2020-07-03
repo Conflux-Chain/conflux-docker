@@ -28,8 +28,8 @@
 #     * generate blocks automatically without PoW if `start_mining` is false
 #     * Skip catch-up mode even there is no peer
 #
-mode = "dev"
-genesis_secrets = "genesis_secrets.txt"
+mode = "docker"
+# genesis_secrets = "genesis_secrets.txt"
 
 # If you want to setup a single node running Conflux for development. You should
 # COMMENT the bootnodes setting and you should use the following parameters:
@@ -119,10 +119,10 @@ jsonrpc_cors="all"
 # so as to support the Conflux CLI subcommands. What's provided here is the recommended
 # value if you want to start rpc services for other front-end applications.
 #
-# jsonrpc_ws_port=12535
-# jsonrpc_tcp_port=12536
+jsonrpc_ws_port=12535
+jsonrpc_tcp_port=12536
 jsonrpc_http_port=12537
-# jsonrpc_local_tcp_port=12538
+jsonrpc_local_tcp_port=12538
 jsonrpc_local_http_port=12539
 
 # --------------- Performance-related Network Parameters ----------------------

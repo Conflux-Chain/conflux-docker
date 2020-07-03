@@ -1,12 +1,15 @@
-TAG = 0.5.0.4
+TAG = 0.5.0.5
 
 .PHONY: all build push
 
 all: build
 
-build:
+clone: 
+	rm -rf conflux
+	git clone -b v${TAG} --single-branch --depth 1 https://github.com/Conflux-Chain/conflux-rust.git conflux
+
+build: clone
 	docker build -t confluxchain/conflux-rust:${TAG} .
 
 push:
 	docker push confluxchain/conflux-rust:${TAG}
-

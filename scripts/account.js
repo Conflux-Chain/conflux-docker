@@ -13,10 +13,3 @@ async function getAccounts() {
     let result = await client.call('accounts');
     return result;
 }
-
-// ;(async () => {
-//     await genAccounts();
-//     // await getAccounts();
-// })();
-
-exports.getAccounts = getAccounts;
