@@ -61,7 +61,7 @@ async function waitns(number = 30) {
         return;
     }
     // wait 30s
-    await waitns(5);
+    await waitns(30);
     // check accounts
     let accounts = await getAccounts();
     if (accounts.length >= 10) {

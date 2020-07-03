@@ -11,15 +11,12 @@ ADD conflux /usr/src/conflux
 WORKDIR /usr/src/conflux
 RUN cargo install --path .
 
-FROM alpine:3.12
+FROM debian:buster-slim
 
 WORKDIR /root
 COPY --from=builder /usr/local/cargo/bin/conflux /usr/local/bin/conflux
 COPY --from=builder /usr/local/cargo/bin/cfxkey /usr/local/bin/cfxkey
-COPY . .
 ADD run /root/run
-
 EXPOSE 12535 12536 12537 12538 12539 32323 32525
-
 WORKDIR /root/run
 CMD ["conflux", "--config", "default.toml"]
