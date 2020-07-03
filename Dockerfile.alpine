@@ -1,0 +1,25 @@
+FROM rust:1.42.0-buster as builder
+# install cmake
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
+    tar -zxvf cmake-3.15.2.tar.gz && \
+    cd cmake-3.15.2 && \
+    ./bootstrap && \
+    make && \
+    make install
+WORKDIR /usr/src
+ADD conflux /usr/src/conflux
+WORKDIR /usr/src/conflux
+RUN cargo install --path .
+
+FROM alpine:3.12
+
+WORKDIR /root
+COPY --from=builder /usr/local/cargo/bin/conflux /usr/local/bin/conflux
+COPY --from=builder /usr/local/cargo/bin/cfxkey /usr/local/bin/cfxkey
+COPY . .
+ADD run /root/run
+
+EXPOSE 12535 12536 12537 12538 12539 32323 32525
+
+WORKDIR /root/run
+CMD ["conflux", "--config", "default.toml"]
