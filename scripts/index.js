@@ -60,6 +60,7 @@ async function unlockAccounts() {
 
 ;(async () => {
     // check mining address
+    await waitns(5);
     const config = readConfig();
     if (!config.mining_key) {
         return;
