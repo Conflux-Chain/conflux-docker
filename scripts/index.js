@@ -1,18 +1,15 @@
 const {Conflux, provider, util} = require('js-conflux-sdk');
 const TOML = require('@iarna/toml');
 const fs = require('fs');
-
+const PASSWORD = '123456';
 const URL = "http://localhost:12537";
 const client = provider(URL);
-const PRI_KEY = '0x35D29A5A56DB5C87FD257DC0EE83799F8D12D20C6BCBF5E8927218BB436FDA3D';
 const cfx = new Conflux({
     url: URL,
     defaultGasPrice: 100, // The default gas price of your following transactions
     defaultGas: 1000000, // The default gas of your following transactions
     // logger: console,
 });
-const account = cfx.Account(PRI_KEY);
-console.log("Gene account: ", account.address);
 
 function readConfig() {
     let configString = fs.readFileSync("../run/default.toml", "utf-8");
@@ -22,7 +19,7 @@ function readConfig() {
 
 async function genAccounts() {
     for(let i = 1; i <= 10; i++) {
-        let info = await client.call("new_account", "123456");  // default password is 123456
+        let info = await client.call("new_account", PASSWORD);
         console.log('Gen account: ', info);
     }
 }
@@ -32,12 +29,12 @@ async function getAccounts() {
     return result;
 }
 
-async function transferCfx() {
+async function transferCfx(from) {
     let accounts = await getAccounts();
     for(let target of accounts) {
         try {
             const tx = await cfx.sendTransaction({
-                from: account,
+                from: from,
                 to: target,
                 value: util.unit.fromCFXToDrip(1000), // use unit to transfer from CFX to Drip
             }).executed();
@@ -54,12 +51,21 @@ async function waitns(number = 30) {
     });
 }
 
+async function unlockAccounts() {
+    let accounts = await getAccounts();
+    for(let target of accounts) {
+        await client.call('unlock_account', [target, PASSWORD, '0x0']);
+    }
+}
+
 ;(async () => {
     // check mining address
     const config = readConfig();
-    if("0x" + config.mining_author !== account.address) {
+    if (!config.mining_key) {
         return;
     }
+    const account = cfx.Account(config.mining_key);
+    console.log("Gene account: ", account.address);
     // wait 30s
     await waitns(30);
     // check accounts
@@ -72,5 +78,7 @@ async function waitns(number = 30) {
     // wait 30s
     await waitns(10);
     // transfer cfx to genesis account
-    await transferCfx();
+    await transferCfx(account);
+    // unlock accounts
+    await unlockAccounts();
 })();

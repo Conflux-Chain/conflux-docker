@@ -16,3 +16,6 @@ push:
 
 build-prod: clone
 	docker build -f Dockerfile.slim -t confluxchain/conflux-rust:${TAG}-slim .
+
+push-prod:
+	docker push confluxchain/conflux-rust:${TAG}-slim
