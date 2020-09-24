@@ -11,12 +11,6 @@ This is the docker image of Conflux-rust.
 
 `Warning`: These tags image's `default.toml` will config a independent chain with 10 genesis accounts (each with 1000 CFX), you can use them as local Dapp develop environment. If you want run a mainnet node, you need to use your own config file.
 
-* 0.6.0-slim
-* 0.5.2-slim
-
-slim images is much smaller, and will not init gene account for test.
-You can use these images to run a mainnet node, but remember to use your own config.
-
 ## How to run
 
 Step 1 pull image from docker hub

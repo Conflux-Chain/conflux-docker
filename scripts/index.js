@@ -72,6 +72,8 @@ async function unlockAccounts() {
     // check accounts
     let accounts = await getAccounts();
     if (accounts.length >= 10) {
+        // unlock and return
+        await unlockAccounts();
         return;
     }
     // gen 10 accounts
