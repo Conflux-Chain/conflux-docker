@@ -8,7 +8,7 @@ clone:
 	rm -rf conflux
 	git clone -b v${TAG} --single-branch --depth 1 https://github.com/Conflux-Chain/conflux-rust.git conflux
 
-build: clone
+build: 
 	docker build -t confluxchain/conflux-rust:${TAG} .
 
 push:

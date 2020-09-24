@@ -54,7 +54,8 @@ async function waitns(number = 30) {
 async function unlockAccounts() {
     let accounts = await getAccounts();
     for(let target of accounts) {
-        await client.call('unlock_account', [target, PASSWORD, '0x0']);
+        console.log(`Unlocking account ${target}`);
+        await client.call('unlock_account', target, PASSWORD, '0x0');
     }
 }
 
@@ -84,4 +85,6 @@ async function unlockAccounts() {
     await transferCfx(account);
     // unlock accounts
     await unlockAccounts();
+    
+    fs.writeFileSync("./info.txt", "Finished");  // indicate init success
 })();

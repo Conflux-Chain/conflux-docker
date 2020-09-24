@@ -5,6 +5,9 @@ This is the docker image of Conflux-rust.
 
 ## Tags
 
+* 0.6.3
+* 0.6.2
+* 0.6.1
 * 0.6.0
 * 0.5.2
 * 0.5.0.2
