@@ -79,12 +79,11 @@ async function unlockAccounts() {
     }
     // gen 10 accounts
     await genAccounts(); 
-    // wait 30s
+    // wait 10s
     await waitns(10);
+    await unlockAccounts();
     // transfer cfx to genesis account
     await transferCfx(account);
     // unlock accounts
-    await unlockAccounts();
-    
     fs.writeFileSync("./info.txt", "Finished");  // indicate init success
 })();

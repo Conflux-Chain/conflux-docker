@@ -12,7 +12,9 @@ This is the docker image of Conflux-rust.
 * 0.5.2
 * 0.5.0.2
 
-`Warning`: These tags image's `default.toml` will config a independent chain with 10 genesis accounts (each with 1000 CFX), you can use them as local Dapp develop environment. If you want run a mainnet node, you need to use your own config file.
+`Warning`: These tags image's `default.toml` will config a independent chain with 10 genesis accounts (each with 1000 CFX) and all unlocked, you can use them as local Dapp develop environment. If you want run a mainnet node, you need to use your own config file.
+
+Note: the unlock process maybe need two or three minutes.
 
 ## How to run
 
