@@ -1,14 +1,11 @@
-FROM rust:1.45.0-buster as builder
-# install cmake
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
-    tar -zxvf cmake-3.15.2.tar.gz && \
-    cd cmake-3.15.2 && \
-    ./bootstrap && \
-    make && \
-    make install
+FROM confluxchain/conflux-rust-builder:0.1.0 as builder
+
 WORKDIR /usr/src
 ADD conflux /usr/src/conflux
 WORKDIR /usr/src/conflux
+# RUN mkdir $HOME/.cargo
+# ADD misc/cargo-config.toml $HOME/.cargo/config
+RUN cargo clean
 RUN cargo install --path .
 
 FROM debian:buster-slim
