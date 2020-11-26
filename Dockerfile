@@ -1,4 +1,4 @@
-FROM confluxchain/conflux-rust-builder:0.1.0 as builder
+FROM confluxchain/conflux-rust-builder:0.1.1 as builder
 
 WORKDIR /usr/src
 ADD conflux /usr/src/conflux
@@ -8,10 +8,7 @@ WORKDIR /usr/src/conflux
 RUN cargo clean
 RUN cargo install --path .
 
-FROM debian:buster-slim
-RUN apt-get update && apt-get install -y curl build-essential
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
-    apt-get install -y nodejs
+FROM confluxchain/conflux-node:0.1.0
 
 WORKDIR /root
 COPY --from=builder /usr/local/cargo/bin/conflux /usr/local/bin/conflux

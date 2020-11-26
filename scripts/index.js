@@ -51,8 +51,7 @@ async function waitns(number = 30) {
     });
 }
 
-async function unlockAccounts() {
-    let accounts = await getAccounts();
+async function unlockAccounts(accounts) {
     for(let target of accounts) {
         console.log(`Unlocking account ${target}`);
         await client.call('unlock_account', target, PASSWORD, '0x0');
@@ -66,22 +65,24 @@ async function unlockAccounts() {
     if (!config.mining_key) {
         return;
     }
-    const account = cfx.Account(config.mining_key);
-    console.log("Gene account: ", account.address);
-    // wait 30s
-    await waitns(30);
     // check accounts
     let accounts = await getAccounts();
     if (accounts.length >= 10) {
         // unlock and return
-        await unlockAccounts();
+        await unlockAccounts(accounts);
         return;
     }
+
     // gen 10 accounts
     await genAccounts(); 
+    accounts = await getAccounts();
+    await unlockAccounts(accounts);
     // wait 10s
     await waitns(10);
-    await unlockAccounts();
+
+    const account = cfx.Account(config.mining_key);
+    console.log("Gene account: ", account.address);
+    
     // transfer cfx to genesis account
     await transferCfx(account);
     // unlock accounts
