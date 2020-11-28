@@ -1,4 +1,4 @@
-TAG = 0.5.2
+TAG = 1.0.0
 
 .PHONY: all build push
 
@@ -10,6 +10,9 @@ clone:
 
 build: 
 	docker build -t confluxchain/conflux-rust:${TAG} .
+
+host-build: 
+	docker build -t confluxchain/conflux-rust:${TAG} . --network host
 
 push:
 	docker push confluxchain/conflux-rust:${TAG}

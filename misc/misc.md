@@ -11,9 +11,8 @@ Simple doc
 ### TO OP
 
 1. install cmake with apt-get
-2. generate miner account random
 3. OP genesis account generate method
-
+4. automatic build docker image
 
 keys location in docker: /root/.local/share/Conflux/keys
 

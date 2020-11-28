@@ -59,12 +59,15 @@ async function unlockAccounts(accounts) {
 }
 
 ;(async () => {
+    // wait rpc service started
+    await waitns(10);
     // check mining address
-    await waitns(5);
+    console.log('===== Try to setup accounts')
     const config = readConfig();
     if (!config.mining_key) {
         return;
     }
+    
     // check accounts
     let accounts = await getAccounts();
     if (accounts.length >= 10) {
@@ -73,13 +76,15 @@ async function unlockAccounts(accounts) {
         return;
     }
 
+    console.log('===== Generate 10 accounts')
     // gen 10 accounts
     await genAccounts(); 
     accounts = await getAccounts();
     await unlockAccounts(accounts);
     // wait 10s
-    await waitns(10);
+    // await waitns(10);
 
+    console.log('===== Seed gene accounts')
     const account = cfx.Account(config.mining_key);
     console.log("Gene account: ", account.address);
     
