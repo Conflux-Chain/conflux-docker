@@ -58,16 +58,30 @@ async function unlockAccounts(accounts) {
     }
 }
 
+async function testRPCServiceUp(times = 3) {
+    for(let i = 0; i < times; i++) {
+        try {
+            await getAccounts();
+            return;
+        } catch(e) {
+            console.log("wait 5s and try again");
+            await waitns(5);
+        }
+    }
+}
+
 ;(async () => {
     // wait rpc service started
     await waitns(10);
+
     // check mining address
-    console.log('===== Try to setup accounts')
     const config = readConfig();
     if (!config.mining_key) {
         return;
     }
     
+    console.log('===== Try to setup accounts')
+    await testRPCServiceUp(5);
     // check accounts
     let accounts = await getAccounts();
     if (accounts.length >= 10) {
