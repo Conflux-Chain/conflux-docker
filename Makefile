@@ -17,8 +17,14 @@ host-build:
 push:
 	docker push confluxchain/conflux-rust:${TAG}
 
-build-prod: clone
-	docker build -f Dockerfile.slim -t confluxchain/conflux-rust:${TAG}-slim .
+build-prod: 
+	docker build -f production/Dockerfile -t confluxchain/conflux-rust:${TAG}-slim ./production --network host
 
 push-prod:
 	docker push confluxchain/conflux-rust:${TAG}-slim
+
+download-binary: 
+	rm -rf conflux_linux_*.zip
+	rm -rf conflux-binary
+	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux_linux_v${TAG}.zip
+	unzip conflux_linux_v${TAG}.zip -d conflux-binary

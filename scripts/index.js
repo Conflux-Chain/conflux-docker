@@ -70,6 +70,23 @@ async function testRPCServiceUp(times = 3) {
     }
 }
 
+async function testTransfer(from, target, times = 3) {
+    for(let i = 0; i < times; i++) {
+        try {
+            const tx = await cfx.sendTransaction({
+                from: from,
+                to: target,
+                value: util.unit.fromCFXToDrip(1000), // use unit to transfer from CFX to Drip
+            }).executed();
+            console.log(`Test transfering to ${target} hash ${tx.transactionHash}`);
+            return;
+        } catch(e) {
+            console.log("wait 5s and try again");
+            await waitns(5);
+        }
+    }
+}
+
 ;(async () => {
     // wait rpc service started
     await waitns(10);
@@ -98,11 +115,12 @@ async function testRPCServiceUp(times = 3) {
     // wait 10s
     // await waitns(10);
 
-    console.log('===== Seed gene accounts')
+    console.log('===== Seed gene accounts');
     const account = cfx.Account(config.mining_key);
     console.log("Gene account: ", account.address);
     
     // transfer cfx to genesis account
+    await testTransfer(account, accounts[0], 5);
     await transferCfx(account);
     // unlock accounts
     fs.writeFileSync("./info.txt", "Finished");  // indicate init success

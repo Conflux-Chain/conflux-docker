@@ -15,7 +15,8 @@ WORKDIR /root
 COPY --from=builder /usr/local/cargo/bin/conflux /usr/local/bin/conflux
 COPY --from=builder /usr/local/cargo/bin/cfxkey /usr/local/bin/cfxkey
 COPY . .
-RUN cd scripts && npm i --registry=https://registry.npm.taobao.org
+RUN cd scripts && npm i 
+# --registry=https://registry.npm.taobao.org
 EXPOSE 12535 12536 12537 12538 12539 32323 32525
 # CMD ["conflux", "--config", "default.toml"]
 RUN chmod +x start.sh
