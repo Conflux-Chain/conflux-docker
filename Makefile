@@ -17,11 +17,17 @@ host-build:
 push:
 	docker push confluxchain/conflux-rust:${TAG}
 
-build-prod: 
-	docker build -f production/Dockerfile -t confluxchain/conflux-rust:${TAG}-slim ./production --network host
+build-mainnet: 
+	docker build -f production/Dockerfile -t confluxchain/conflux-rust:${TAG}-mainnet .
 
-push-prod:
-	docker push confluxchain/conflux-rust:${TAG}-slim
+push-mainnet:
+	docker push confluxchain/conflux-rust:${TAG}-mainnet
+
+build-testnet: 
+	docker build -f production/Dockerfile -t confluxchain/conflux-rust:${TAG}-testnet .
+
+push-testnet:
+	docker push confluxchain/conflux-rust:${TAG}-testnet
 
 download-binary: 
 	rm -rf conflux_linux_*.zip
