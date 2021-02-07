@@ -1,9 +1,9 @@
 const TOML = require('@iarna/toml');
 const fs = require('fs');
-const {Account} = require('js-conflux-sdk');
+const {PrivateKeyAccount: Account, format} = require('js-conflux-sdk');
 
 function initialConfig() {
-    const configStr = fs.readFileSync("../run/default.toml", "utf-8");
+    const configStr = fs.readFileSync("../default.toml", "utf-8");
     const config = TOML.parse(configStr);
     
     // if "mode" is not docker leave it alone
@@ -16,16 +16,16 @@ function initialConfig() {
     config.chain_id = parseInt(Math.random() * 10000); 
     
     // generate random mining_auther
-    const randomAccount = Account.random();
-    config.mining_author = randomAccount.address.replace('0x', '');
+    const randomAccount = Account.random(undefined, config.chain_id);
+    config.mining_author = format.hexAddress(randomAccount.address);
     config.mining_key = randomAccount.privateKey;
     
     // setting genesis_secret
     config.genesis_secrets = './genesis_secret.txt';
-    fs.writeFileSync("../run/genesis_secret.txt", randomAccount.privateKey.replace('0x', ''));
+    fs.writeFileSync("../genesis_secret.txt", randomAccount.privateKey.replace('0x', ''));
     
     // write config back
-    fs.writeFileSync("../run/default.toml", TOML.stringify(config));
+    fs.writeFileSync("../default.toml", TOML.stringify(config));
     console.log('CFXDOCKER: config file set success !');
 }
 

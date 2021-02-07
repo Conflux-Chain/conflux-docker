@@ -1,7 +1,6 @@
 scripts/node_modules
 tmp.md
-run/blockchain_db
-run/log
-run/net_config
-run/storage_db
+run/*
 tests
+conflux/*
+conflux_linux_*.zip
