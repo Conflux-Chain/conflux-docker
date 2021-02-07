@@ -1,6 +1,6 @@
-const {Conflux, provider} = require('js-conflux-sdk');
+const {providerFactory: provider} = require('js-conflux-sdk');
 
-const client = provider('http://localhost:12537');
+const client = provider({url: 'http://localhost:12537'});
 
 async function genAccounts() {
     for(let i = 1; i <= 10; i++) {

@@ -1,12 +1,11 @@
-FROM confluxchain/conflux-node:0.1.0
+FROM confluxchain/conflux-node:0.2.0
 WORKDIR /root
-COPY . .
-RUN cp ./conflux-binary/run/conflux ./conflux 
-RUN cd scripts && npm i 
-# --registry=https://registry.npm.taobao.org
-EXPOSE 12535 12536 12537 12538 12539 32323 32525
-# CMD ["conflux", "--config", "default.toml"]
+COPY cfxrun cfxrun
+
+WORKDIR /root/cfxrun
 RUN chmod +x start.sh
 RUN chmod +x conflux.sh
 RUN chmod +x gene_account.sh
+
+EXPOSE 12535 12536 12537 12538 12539 32323 32525
 ENTRYPOINT [ "./start.sh" ]

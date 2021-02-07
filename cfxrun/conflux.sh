@@ -5,5 +5,4 @@ node initConfig.js
 cd ..
 
 # start conflux
-cd ./run
-conflux --config ./default.toml
+./conflux --config ./default.toml

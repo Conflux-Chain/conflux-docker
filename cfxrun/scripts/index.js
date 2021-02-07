@@ -1,9 +1,9 @@
-const {Conflux, provider, util} = require('js-conflux-sdk');
+const {Conflux, providerFactory: provider, Drip} = require('js-conflux-sdk');
 const TOML = require('@iarna/toml');
 const fs = require('fs');
 const PASSWORD = '123456';
 const URL = "http://localhost:12537";
-const client = provider(URL);
+const client = provider({url: URL});
 const cfx = new Conflux({
     url: URL,
     defaultGasPrice: 100, // The default gas price of your following transactions
@@ -12,7 +12,7 @@ const cfx = new Conflux({
 });
 
 function readConfig() {
-    let configString = fs.readFileSync("../run/default.toml", "utf-8");
+    let configString = fs.readFileSync("../default.toml", "utf-8");
     let config = TOML.parse(configString);
     return config;
 }
@@ -36,7 +36,7 @@ async function transferCfx(from) {
             const tx = await cfx.sendTransaction({
                 from: from,
                 to: target,
-                value: util.unit.fromCFXToDrip(1000), // use unit to transfer from CFX to Drip
+                value: Drip.fromCFX(1000), // use unit to transfer from CFX to Drip
             }).executed();
             console.log(`Transfering to ${target} hash ${tx.transactionHash}`);
         } catch(e) {
@@ -76,7 +76,7 @@ async function testTransfer(from, target, times = 3) {
             const tx = await cfx.sendTransaction({
                 from: from,
                 to: target,
-                value: util.unit.fromCFXToDrip(1000), // use unit to transfer from CFX to Drip
+                value: Drip.fromCFX(1000), // use unit to transfer from CFX to Drip
             }).executed();
             console.log(`Test transfering to ${target} hash ${tx.transactionHash}`);
             return;
@@ -90,6 +90,8 @@ async function testTransfer(from, target, times = 3) {
 ;(async () => {
     // wait rpc service started
     await waitns(10);
+    //
+    await cfx.updateNetworkId();
 
     // check mining address
     const config = readConfig();
@@ -116,7 +118,7 @@ async function testTransfer(from, target, times = 3) {
     // await waitns(10);
 
     console.log('===== Seed gene accounts');
-    const account = cfx.Account(config.mining_key);
+    const account = cfx.wallet.addPrivateKey(config.mining_key);
     console.log("Gene account: ", account.address);
     
     // transfer cfx to genesis account
