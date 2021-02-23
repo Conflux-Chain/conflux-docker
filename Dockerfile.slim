@@ -1,8 +1,9 @@
 FROM confluxchain/conflux-node:0.2.0
 WORKDIR /root
-COPY cfxrun cfxrun
+COPY cfxrun run
+COPY cfxrun/conflux /usr/local/bin/conflux
 
-WORKDIR /root/cfxrun
+WORKDIR /root/run
 RUN chmod +x start.sh
 RUN chmod +x conflux.sh
 RUN chmod +x gene_account.sh
