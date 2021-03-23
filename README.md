@@ -29,7 +29,7 @@ $ docker run -p 12537:12537 --rm --name cfx-node confluxchain/conflux-rust
 You can attach an folder from local machine to container, which folder should contain conflux `config files`. You can download a zip file from Conflux-rust [release page](https://github.com/Conflux-Chain/conflux-rust/releases), the unziped folder will include a `tethys.toml` or `testnet.toml` then you can use this folder as Conflux-rust run context folder. When conflux client runs up, chain data will also save to this folder。
 
 ```sh
-$ docker run -p 12537:12537 -v /path-to-your-config-folder:/root/cfxrun --name cfx-node confluxchain/conflux-rust
+$ docker run -p 12537:12537 -v /path-to-your-config-folder:/root/run --name cfx-node confluxchain/conflux-rust
 ```
 
 This repository's `fullnode-configs` folder also include mainnet and testnet's config file.

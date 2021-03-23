@@ -1,7 +1,7 @@
 FROM confluxchain/conflux-node:0.2.0
 WORKDIR /root
 COPY cfxrun run
-COPY cfxrun/conflux /usr/local/bin/conflux
+RUN ln -s /root/run/conflux /usr/local/bin/conflux
 
 WORKDIR /root/run
 RUN chmod +x start.sh
