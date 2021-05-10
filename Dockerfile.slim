@@ -4,9 +4,7 @@ COPY cfxrun run
 RUN ln -s /root/run/conflux /usr/local/bin/conflux
 
 WORKDIR /root/run
-RUN chmod +x start.sh
-RUN chmod +x conflux.sh
-RUN chmod +x gene_account.sh
+RUN chmod +x start.sh conflux.sh gene_account.sh
 
 EXPOSE 12535 12536 12537 12538 12539 32323 32525
 ENTRYPOINT [ "./start.sh" ]
