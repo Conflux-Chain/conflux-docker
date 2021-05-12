@@ -2,5 +2,5 @@ scripts/node_modules
 tmp.md
 run/*
 tests
-conflux/*
+# conflux/*
 conflux_linux_*.zip

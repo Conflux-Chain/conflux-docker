@@ -11,8 +11,8 @@ clone:
 build: 
 	docker build -f Dockerfile.slim -t confluxchain/conflux-rust:${TAG} .
 
-# host-build: 
-# 	docker build -t confluxchain/conflux-rust:${TAG} . --network host
+host-build: 
+	docker build --progress plain -t confluxchain/conflux-rust:${TAG} . --network host
 
 push:
 	docker push confluxchain/conflux-rust:${TAG}
@@ -30,12 +30,12 @@ push-testnet:
 	docker push confluxchain/conflux-rust:${TAG}-testnet
 
 build-node: 
-	docker build -f Dockerfile.node -t confluxchain/conflux-node:${TAG} .
+	docker build -f base-images/Dockerfile.node -t confluxchain/conflux-node:${TAG} .
 
 push-node:
 	docker push confluxchain/conflux-node:${TAG}
 
-download-binary: 
+download: 
 	rm -rf conflux_linux_*.zip
 	rm -rf conflux-binary
 	rm -f cfxrun/conflux

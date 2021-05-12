@@ -3,14 +3,19 @@
 # A node is identified by cfxnode://NODEID@PUBLICIP:PORT
 # By default, no bootnodes are provided. What's provided here is a list of nodes that Conflux Team maintains across the world.
 
-# bootnodes=""
+# bootnodes="cfxnode://604deed272ec2a6f75538f0852e9cd71c616b35655ea8331b5987b3cc682097da76b9c8d2e90601d818acfac54f15af08a6389af245d4149d7d7f4a952bebfb3@39.97.223.148:32323,cfxnode://77bd8823c286e6b159432607d309983eac76830ecdd2bb2b6be7bf3b8e90bbae92f980dd7c8a6c284670679090d3ebf8e43ef91755cdf2eb6caa76532400be4c@182.92.92.126:32323,cfxnode://6582f6e20cfb975ff0b1fe6cb1d97f1e85c0502d44de441f43b032d7c8b986ebbd6a52f228ca55639b49742505bcf3f541551b2485d248e041d9ff1389bb016d@59.110.70.5:32323,cfxnode://24caea3455cf5ff9bbc532c6c6ca39b7edd0ecbbf29725dccdd36b5be629f1b0967391fdd99e81f9e35eb48a85602b2cff7c4c6893b7a906cc6b832c09ae9f33@101.201.127.86:32323,cfxnode://d2d4d2421da4b3b7314b83da06a2ed803965968ebc1614ac41eec5391a136d681a1433dbb56d067ad7e6cab682f35454a87a96e65a3b7eac867eea36b5d8535b@123.57.45.90:32323,cfxnode://ba297dc48bbba48e48c2f01dd0478d3a128b49ba4eccc65d0b800677bb8cc8a72eda57395f5a4b54269ec93189127efbd8ed235836db505f00b0e4558c1c6d97@39.97.208.206:32323,cfxnode://31f9397cfe1bbbecd5667dd13a5b6629201d5bdb9709813c8ad45e21a7ff767f17eb296ee635bb6c1265293bc4ad864db4ca229ad415d31e39121bf2a52405f9@13.229.52.100:32323,cfxnode://a7052f8b9d263549f737334b3cfe4d073fbedf69a21f25754a49a5cd7e83eb998eac1b223e55ae37779c1537bdd429719d0da45637d2d65dbaa917ad2c7085f2@20.43.79.41:32323,cfxnode://869ad83c0f6d8d9f571f62e444dd9a00bb5291e05b65b2d3920db912cdaaa9f283e72a5638ec71aadeeb37f53cdf40fb041214a80d7a6748f6ba96ec62b2909f@137.135.25.219:32323"
+
+# Set the node type to Full node, Archive node, or Light node.
+# Possible values are "full", "archive", or "light".
+# The command line parameter `--full`, `--archive`, or `--light` will overwrite this parameter.
+#
+node_type = "archive"
 
 # Some preset develepment configurations.
 # It should not be set in production environment.
 #
 # For both `test` and `dev` modes, we will
 #     * Set initial difficulty to 4
-#     * Allow calling test and debug rpc from public port
 #
 # `test` mode is for Conflux testing and debugging, we will
 #     * Add latency to peer connections
@@ -25,45 +30,55 @@
 #     * Open port 12535 for ws rpc if `jsonrpc_ws_port` is not provided.
 #     * Open port 12536 for tcp rpc if `jsonrpc_tcp_port` is not provided.
 #     * Open port 12537 for http rpc if `jsonrpc_http_port` is not provided.
-#     * generate blocks automatically without PoW if `start_mining` is false
+#     * generate blocks without PoW (either after receiving a transaction or
+#       in fixed period, see ``dev_block_interval_ms'')
 #     * Skip catch-up mode even there is no peer
 #
-mode = "docker"
-# genesis_secrets = "genesis_secrets.txt"
+# mode = ""
 
 # If you want to setup a single node running Conflux for development. You should
 # COMMENT the bootnodes setting and you should use the following parameters:
 #
-# mode = "dev"
+mode = "docker"
 
-# Note that ``dev_block_interval_ms'' controls the mining rate in the dev mode.
+# ``dev_block_interval_ms'' controls the mining rate in the dev mode.
+#
+# If it's not set, blocks will only be generated after receiving a transaction.
+# Otherwise, blocks are automatically generated every ``dev_block_interval_ms'' ms.
 #
 dev_block_interval_ms = 250
 
 # ----------------- Mining Configuration -----------------
 
-# `start_mining` controls whether a thread is started to mine new blocks.
-# If not set, the node will not start mining blocks.
-# If the value is true, `mining_author` must be set.
-#
-start_mining=false
-
 # `mining_author` is the address to receive mining rewards.
-# The value is a 40-digit hex string without 0x prefix.
+# If set, `mining_type` will be "stratum" by default.
+# The value is a 40-digit hex string or a valid CIP-37 base32 address.
 # By default, the value is not set.
 #
-mining_author="1386b4185a223ef49592233b69291bbe5a80c527"
+# mining_author="cfx:aarc9abycue0hhzgyrr53m6cxedgccrmmyybjgh4xg"
 
-# `use_stratum` controls whether the mining process goes through the
-# stratum protocol.
-# use_stratum=true
+# `mining_type` controls whether the mining process goes through the
+# stratum protocol, uses CPU-mining, or disable mining.
+# Possible values are "stratum", "cpu", and "disable".
+# The default value is "stratum" if `mining_author` is set.
+# If the value is set and not "disable", `mining_author` must be set.
+#
+# mining_type = "stratum"
+
+# Listen address for stratum
+#
+# stratum_listen_address = "127.0.0.1"
 
 # Port for stratum.
 #
 # stratum_port = 32525
 
+# Window size for PoW manager
+#
+# pow_problem_window_size = 1
+
 # Secret key for stratum.
-# The value is 64-digit hex string without 0x prefix.
+# The value is 64-digit hex string.
 # If not set, the RPC subscription will not check the authorization.
 #
 # stratum_secret = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -89,14 +104,19 @@ log_conf="log.yaml"
 # -------------- Network Configuration -------------
 
 # `public_address` is the address of this node used for other nodes to connect to.
-# If not set, the process will try to find out the public IP with best effort, and use `port` as public port.
+# If not set, the process will try to find out the public IP with best effort, and use `tcp_port` as public port.
 # However, it's HIGHLY RECOMMENDED to set the value manually, especially for machines with IP translated by NAT.
 #
-# public_address="124.193.101.50:32323"
+# public_address="1.1.1.1"
 
-# `port` is the TCP port that the process listens for P2P messages.
+# `tcp_port` is the TCP port that the process listens for P2P messages. The default is 32323.
 #
-# port=32323
+# tcp_port=32323
+
+# `public_tcp_port` is the public TCP port that other nodes should connect to. It might be different from 
+# the tcp_port in case the machine is behind a NAT. The default is as same as `tcp_port`.
+#
+# public_tcp_port=32323
 
 # `udp_port` is the UDP port used for node discovery.
 # If not set, it will be the same as `port`.
@@ -112,18 +132,27 @@ log_conf="log.yaml"
 # If not set, domain validation is disabled.
 # By default, the values are not set. 
 #
-jsonrpc_cors="all"
+# jsonrpc_cors="all"
 
 # The following parameters are the ports for the node to provide rpc service. If not set,
 # the node will not start rpc services. By default, the `jsonrpc_local_http_port` is set,
 # so as to support the Conflux CLI subcommands. What's provided here is the recommended
 # value if you want to start rpc services for other front-end applications.
+# Note that to serve transaction-related RPCs, `persist_tx_index` should also be set to `true` or
+# the node will only be able to handle very recent transactions.
 #
-jsonrpc_ws_port=12535
-jsonrpc_tcp_port=12536
-jsonrpc_http_port=12537
-jsonrpc_local_tcp_port=12538
+# jsonrpc_ws_port=12535
+# jsonrpc_tcp_port=12536
+# jsonrpc_http_port=12537
+# jsonrpc_local_tcp_port=12538
 jsonrpc_local_http_port=12539
+
+# Specify the APIs available through the public JSON-RPC interfaces (HTTP, TCP, WebSocket)
+# using a comma-delimited list of API names.
+# Possible names are: all, safe, cfx, debug, pubsub, test, trace.
+# `safe` only includes `cfx` and `pubsub`.
+#
+public_rpc_apis = "all"
 
 # --------------- Performance-related Network Parameters ----------------------
 
@@ -283,10 +312,13 @@ jsonrpc_local_http_port=12539
 # `netconf_dir` is the directory to store network related persistent data, including `net_key`,
 # a list of trusted nodes and a list of untrusted nodes.
 #
-# netconf_dir="./net_config"
+# By default, it is stored under the directory configured with `conflux_data_dir` with the directory name `net_config`.
+# If set, the directory path will not be related to `conflux_data_dir` anymore.
+#
+# netconf_dir="./blockchain_data/net_config"
 
 # `net_key` is the 256-bit private key to generate a unique node id for this node.
-# The value is a 64-digit hex string without 0x prefix.
+# The value is a 64-digit hex string.
 # If not set, the node will try to read from the file "key" under the directory `netconf_dir`.
 # If the file is not found, the node will generate a random key.
 # By default, the value is not set.
@@ -322,16 +354,16 @@ jsonrpc_local_http_port=12539
 
 # ---------------- Transaction Cache Parameters -----------------
 
-# Whether to record transaction indices.
-# This only needs to be enabled if you want to answer transaction-related RPCs.
+# Whether to persist transaction indices.
+# This only needs to be enabled if you want to reliably answer transaction-related RPCs.
 #
-# record_tx_index = true
+persist_tx_index = true
 
 # Time to keep transactions in in-memory transaction cache.
 #
 # tx_cache_index_maintain_timeout_ms = 300_000
 
-# Maximum number of transactions allowed in the ransaction pool.
+# Maximum number of transactions allowed in the transaction pool.
 #
 # tx_pool_size = 500_000
 
@@ -340,6 +372,22 @@ jsonrpc_local_http_port=12539
 # tx_pool_min_tx_gas_price = 1
 
 # ------------------ Storage Parameters ----------------------
+
+# The number of additional snapshot before the current stable checkpoint that we will maintain.
+# If it's 0, all snapshot before stable genesis will be deleted and the states are unavailable.
+#
+# additional_maintained_snapshot_count = 0
+
+# The additional number of epochs to keep different kinds of data before the current era genesis checkpoint.
+# For full/light nodes, the default value is 0, meaning all data before the era checkpoint will be removed.
+# For archive nodes, the default behavior is keeping all these data, while setting these parameters manually
+# will overwrite the default behavior of corresponding data types and garbage collect them accordingly.
+#
+# additional_maintained_block_body_epoch_count = 0
+# additional_maintained_execution_result_epoch_count = 0
+# additional_maintained_reward_epoch_count = 0
+# additional_maintained_trace_epoch_count = 0
+# additional_maintained_transaction_index_epoch_count = 0
 
 # Time interval to evict old data from in-memory data cache.
 #
@@ -350,13 +398,16 @@ jsonrpc_local_http_port=12539
 #
 # block_db_type = "rocksdb"
 
-# The root directory of all data (block data, state data, log files, node database).
+# The root directory of all data (block data, state data, and node database).
 #
-# conflux_data_dir = "./"
+# conflux_data_dir = "./blockchain_data"
 
 # The directory to store block-related data.
 #
-# db_dir = "./blockchain_db"
+# By default, it is stored under the directory configured with `conflux_data_dir` with the directory name `blockchain_db`.
+# If set, the directory path will not be related to `conflux_data_dir` anymore.
+#
+# block_db_dir = "./blockchain_data/blockchain_db"
 
 # Maximum size of cached ledger data (block, receipts, e.t.c.)
 # The unit is MB.
@@ -383,7 +434,50 @@ jsonrpc_local_http_port=12539
 # storage_delta_mpts_node_map_vec_size=80000000
 # storage_delta_mpts_slab_idle_size=200000
 
+# Configure if we strictly check the tx index before garbage collection.
+# Setting it to `false` will improve the performance. But if the value is `false`, it's possible that although the
+# epoch where a tx is executed should not be garbage collected, the tx index of this tx is removed because it's packed
+# in an already garbage collected epoch.
+#
+# strict_tx_index_gc = true
+
+# The epoch number where we want to download the state and start re-executing transactions.
+# For full nodes, if the value is not set, the parameter will not take effects.
+# For archive node, the default value is 0.
+#
+# sync_state_starting_epoch = 0
+
+# The number of epochs needed between our best_epoch and our neighbours' best_epoch that we want to
+# start downloading states during catching up.
+#
+# sync_state_epoch_gap = 20
+
+# ------------------ Light Node Parameters ----------------------
+
+# Header sync parameters.
+# ln_header_request_batch_size = 30
+# ln_header_request_timeout_sec = 2
+# ln_max_headers_in_flight = 1000
+
+# Epoch sync parameters.
+# ln_epoch_request_batch_size = 100
+# ln_epoch_request_timeout_sec = 2
+# ln_max_parallel_epochs_to_request = 10
+# ln_num_epochs_to_request = 200
+# ln_num_waiting_headers_threshold = 1000
+
+# -------------------- Trace Parameters -------------------
+
+# Whether to trace EVM execution and records the result in database.
+#
+# executive_trace = false
+
+
 # -------------------- Others -------------------
+
+# Time (in milliseconds) after which accounts are re-read from disk.
+#
+# account_provider_refresh_time_ms = 1000
 
 # Whether to allow execution without deferring if the execution thread is idle.
 #
@@ -398,12 +492,24 @@ jsonrpc_local_http_port=12539
 #
 # get_logs_filter_max_limit = 10
 
+# Epoch batch size used in log filtering.
+# Larger batch sizes may improve performance but might also prevent consensus from making progress under high RPC load.
+#
+# get_logs_epoch_batch_size = 32
+
+# The maximal allowed number of epochs between `from_epoch` and `to_epoch` in the filter to call `cfx_getLogs`.
+# If not set, there is no limit on the gap.
+# By default it is not set.
+#
+# get_logs_filter_max_epoch_range = 10000
+
 # Maximum number of transactions allowed for peers to send to a catch-up node.
 #
 # max_trans_count_received_in_catch_up = 60_000
 
 # The chain_id of conflux network
-# 0 for testnet
-# commentting out for not verify chain_id
+# 1 for testnet
+# 1029 for Tethys
 #
-chain_id = 0
+chain_id = 1
+node_table_promotion_timeout_s = 9600
