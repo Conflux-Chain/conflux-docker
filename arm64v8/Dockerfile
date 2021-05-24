@@ -1,8 +1,8 @@
 FROM arm64v8/node:16-buster-slim
 WORKDIR /root
 COPY cfxrun run
-ADD cfxrun/scripts/package.json package.json
-RUN cd cfxrun/scripts && npm install
+RUN ln -s /root/run/conflux /usr/local/bin/conflux
+RUN cd run/scripts && npm install
 
 WORKDIR /root/run
 RUN chmod +x start.sh conflux.sh gene_account.sh
