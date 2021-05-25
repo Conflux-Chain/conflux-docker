@@ -42,3 +42,15 @@ download:
 	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux_linux_v${TAG}.zip
 	unzip conflux_linux_v${TAG}.zip -d conflux-binary
 	cp conflux-binary/run/conflux cfxrun/conflux
+
+build-arm64:
+    docker build -f arm64v8/Dockerfile.prod -t confluxchain/conflux-rust-arm64:${TAG} .
+
+push-arm64:
+    docker push confluxchain/conflux-rust-arm64:${TAG}
+
+build-arm64-dev:
+    docker build -f arm64v8/Dockerfile -t confluxchain/conflux-rust-arm64:${TAG} .
+
+build-arm64-node:
+	docker build -f arm64v8/Dockerfile.node -t confluxchain/conflux-node-arm64:${TAG} .

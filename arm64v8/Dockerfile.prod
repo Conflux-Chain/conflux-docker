@@ -1,10 +1,8 @@
-#FROM arm64v8/rust:1.51-buster
-#FROM arm64v8/debian:buster
 FROM arm64v8/ubuntu
 RUN apt-get update && apt-get install -y openssl libssl-dev
 WORKDIR /root
 # NOTE: conflux-binary/conflux should be runnable on arm64v8
-COPY conflux-binary run   
+COPY conflux-binary/run run   
 RUN chmod +x /root/run/start.sh /root/run/conflux
 
 WORKDIR /root/run

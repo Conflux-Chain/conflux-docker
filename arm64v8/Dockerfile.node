@@ -1,3 +1,8 @@
-FROM arm64v8/node:16-buster-slim
+FROM arm64v8/ubuntu
+RUN apt-get update && apt-get install -y openssl libssl-dev
+WORKDIR /root
+ADD node-v16.2.0-linux-arm64.tar.xz .
+RUN ln -s /root/node-v16.2.0-linux-arm64/bin/node /usr/local/bin/node
+RUN ln -s /root/node-v16.2.0-linux-arm64/bin/npm /usr/local/bin/npm
 ADD cfxrun/scripts/package.json package.json
 RUN npm install

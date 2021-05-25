@@ -1,4 +1,4 @@
-FROM arm64v8/node:16-buster-slim
+FROM confluxchain/conflux-node-arm64:0.0.1
 WORKDIR /root
 COPY cfxrun run
 RUN ln -s /root/run/conflux /usr/local/bin/conflux
