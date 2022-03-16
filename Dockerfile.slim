@@ -1,7 +1,7 @@
 FROM confluxchain/conflux-node:0.2.1
 WORKDIR /root
 COPY cfxrun run
-RUN ln -s /root/run/conflux /usr/local/bin/conflux
+RUN mv /root/run/conflux /bin/conflux
 
 WORKDIR /root/run
 RUN chmod +x start.sh conflux.sh gene_account.sh

@@ -12,7 +12,7 @@ const cfx = new Conflux({
 });
 
 function readConfig() {
-    let configString = fs.readFileSync("../default.toml", "utf-8");
+    let configString = fs.readFileSync("../conflux.toml", "utf-8");
     let config = TOML.parse(configString);
     return config;
 }
