@@ -1,4 +1,5 @@
 FROM debian:buster-slim
+RUN apt-get update && apt-get -y install libssl-dev
 # FROM alpine:3.13
 WORKDIR /root
 # Add the config files

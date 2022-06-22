@@ -1,0 +1,11 @@
+
+node_type = "archive"
+mode = "dev"
+dev_block_interval_ms = 500
+mining_author="0x1386b4185a223ef49592233b69291bbe5a80c527"
+public_rpc_apis = "all"
+persist_block_number_index = true
+persist_tx_index = true
+additional_maintained_snapshot_count = 100
+executive_trace = true
+chain_id = 1024

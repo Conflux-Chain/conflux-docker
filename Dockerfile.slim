@@ -1,4 +1,5 @@
 FROM confluxchain/conflux-node:0.2.1
+RUN apt-get update && apt-get -y install libssl-dev
 WORKDIR /root
 COPY cfxrun run
 RUN mv /root/run/conflux /bin/conflux
