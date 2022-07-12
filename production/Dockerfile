@@ -9,6 +9,7 @@ RUN mv run/conflux /bin/conflux
 
 # Prepare config
 COPY prepare-config.sh /root/prepare-config.sh
+RUN chmod +x /root/prepare-config.sh
 RUN sh /root/prepare-config.sh
 
 WORKDIR /root/run

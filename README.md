@@ -4,6 +4,7 @@ Conflux-rust is a Rust implementation of the Conflux protocol.
 This is Conflux-rust's docker image.
 
 **NOTE: From v2.0 the docker image's default config file is renamed from `default.toml` to `conflux.toml`**
+**NOTE: If you want use your own config file, need manually add this option `dev_pos_private_key_encryption_password = "your-pos-pwd"`**
 
 ## Tags
 
