@@ -17,17 +17,11 @@ build:
 push:
 	docker push confluxchain/conflux-rust:${TAG}
 
-build-mainnet: 
-	docker build -f production/Dockerfile -t confluxchain/conflux-rust:${TAG}-mainnet .
+build-release: 
+	docker build -f production/Dockerfile -t confluxchain/conflux-rust:${TAG} .
 
-push-mainnet:
-	docker push confluxchain/conflux-rust:${TAG}-mainnet
-
-build-testnet: 
-	docker build -f production/Dockerfile -t confluxchain/conflux-rust:${TAG}-testnet .
-
-push-testnet:
-	docker push confluxchain/conflux-rust:${TAG}-testnet
+push-release:
+	docker push confluxchain/conflux-rust:${TAG}
 
 build-node: 
 	docker build -f Dockerfile.node -t confluxchain/conflux-node:${TAG} .
@@ -39,6 +33,6 @@ download-binary:
 	rm -rf conflux_linux_*.zip
 	rm -rf conflux-binary
 	rm -f cfxrun/conflux
-	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux_linux_v${TAG}.zip
-	unzip conflux_linux_v${TAG}.zip -d conflux-binary
+	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux_linux_glibc2.27_x64_v${TAG}.zip
+	unzip conflux_linux_glibc2.27_x64_v${TAG}.zip -d conflux-binary
 	cp conflux-binary/run/conflux cfxrun/conflux
