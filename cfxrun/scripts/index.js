@@ -89,7 +89,7 @@ async function testTransfer(from, target, times = 3) {
 
 ;(async () => {
     // wait rpc service started
-    await waitns(10);
+    await waitns(30);
     //
     await cfx.updateNetworkId();
 
