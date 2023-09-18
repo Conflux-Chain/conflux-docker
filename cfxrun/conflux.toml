@@ -159,7 +159,9 @@ jsonrpc_http_eth_port=8545
 # `safe` only includes `cfx` and `pubsub`, `txpool`.
 #
 public_rpc_apis = "all"
-# public_evm_rpc_apis = "evm"
+public_evm_rpc_apis = "evm"
+# Specify the filter life time in seconds, only this option is set, the filter related RPC methods will be available.
+poll_lifetime_in_seconds = 600
 
 # --------------- Performance-related Network Parameters ----------------------
 
