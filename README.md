@@ -44,8 +44,8 @@ This repository's `fullnode-configs` folder also include mainnet and testnet's c
 
 ## Docs
 
-1. [Official doc - How to install and run conflux-rust](https://developer.conflux-chain.org/docs/conflux-doc/docs/get_started)
-2. [How to run an Independent Chain](https://developer.conflux-chain.org/docs/conflux-doc/docs/independent_chain)
+1. [Official doc - How to install and run conflux-rust](https://doc.confluxnetwork.org/docs/general/run-a-node/)
+2. [How to run an Independent Chain](https://doc.confluxnetwork.org/docs/general/run-a-node/advanced-topics/running-independent-chain)
 3. [Window 10 Conflux Studio docker setup introduction (Chinese doc)](https://forum.conflux.fun/t/topic/4280)
 
 ## Note
