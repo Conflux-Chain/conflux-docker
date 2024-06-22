@@ -36,3 +36,12 @@ download-binary:
 	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux_linux_glibc2.27_x64_v${TAG}.zip
 	unzip conflux_linux_glibc2.27_x64_v${TAG}.zip -d conflux-binary
 	cp conflux-binary/run/conflux cfxrun/conflux
+
+buildx:
+	docker buildx build -f Dockerfile.buildx --platform=linux/arm64,linux/amd64 --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 
+
+buildx-load:
+	docker buildx build -f Dockerfile.buildx --load --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 
+
+buildx-push:
+	docker buildx build -f Dockerfile.buildx --push --platform=linux/arm64,linux/amd64 --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 

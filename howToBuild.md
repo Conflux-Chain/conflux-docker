@@ -20,6 +20,10 @@ Dev Image is used to run a Conflux local node, with default config 10 test accou
 2. Build image: `make build-testnet TAG=2.0.2`
 3. Push to DockerHub: `make push-testnet TAG=2.0.2`
 
-## M1
+## Buildx
 
-To build a Mac M1 image, a Conflux-rust M1 binary is required, and also need M1 base image.
+Use the docker buildx to build  `linux/arm64,linux/amd64` platform images
+
+1. test build(build result will only remain in the build cache): `make buildx TAG=2.4.0-testnet`
+2. build local images(build image and load to docker) : `make buildx-load TAG=2.4.0-testnet`
+3. build multi-platform images and push to dockerHub: `make buildx-push TAG=2.4.0-testnet`
