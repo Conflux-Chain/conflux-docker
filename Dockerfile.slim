@@ -1,0 +1,11 @@
+FROM confluxchain/conflux-node:0.2.1
+RUN apt-get update && apt-get -y install libssl-dev
+WORKDIR /root
+COPY cfxrun run
+RUN mv /root/run/conflux /bin/conflux
+
+WORKDIR /root/run
+RUN chmod +x start.sh conflux.sh gene_account.sh
+
+EXPOSE 12535 12536 12537 12538 12539 32323 32525
+ENTRYPOINT [ "./start.sh" ]
