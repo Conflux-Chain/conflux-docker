@@ -22,7 +22,7 @@ Dev Image is used to run a Conflux local node, with default config 10 test accou
 
 ## Buildx
 
-Use the docker buildx to build  `linux/arm64,linux/amd64` platform images
+To create images for linux/arm64 and linux/amd64 platforms using Docker buildx, if you see the error `ERROR: Multi-platform build not supported for docker driver`., you can run `docker buildx create --name multiarch --bootstrap --use`.
 
 1. test build(build result will only remain in the build cache): `make buildx TAG=2.4.0-testnet`
 2. build local images(build image and load to docker) : `make buildx-load TAG=2.4.0-testnet`
