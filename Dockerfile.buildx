@@ -22,16 +22,22 @@ RUN export CC=clang && export CXX=clang++ && cargo build --release
 
 FROM ubuntu:24.10
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    openssl &&\
+ENV RUST_BACKTRACE=1
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openssl && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /conflux
+RUN ulimit -n 10000
 
-COPY --from=builder /work/conflux/target/release/conflux .
+WORKDIR /root
 
-COPY --from=builder /work/conflux/run/* .
+COPY --from=builder /work/conflux/run/* ./run/
+COPY --from=builder /work/conflux/target/release/conflux ./run/conflux
+COPY prepare-config.sh .
 
-RUN chmod +x start.sh
+RUN chmod +x prepare-config.sh && ./prepare-config.sh
 
-CMD [ "bash","./start.sh" ]
+WORKDIR /root/run
+
+ENTRYPOINT ["./conflux", "--config", "conflux.toml"]
