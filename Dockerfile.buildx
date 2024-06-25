@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM rust:1.79.0-slim AS builder
+FROM --platform=$BUILDPLATFORM rust:1.77.0-slim AS builder
 ARG VERSION
 
 RUN apt-get update && apt-get install -y \
@@ -20,38 +20,24 @@ RUN export CC=clang && export CXX=clang++ && cargo build --release
 
 
 
-FROM node:18-slim AS node_modules
+FROM ubuntu:24.10
 
-COPY --from=builder /work/conflux/target/release/conflux /bin/conflux
+ENV RUST_BACKTRACE=1
 
-WORKDIR /root
-
-COPY ./cfxrun/scripts/package.json .
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 \
-    build-essential && \
-    npm install
-
-
-FROM node:18-slim
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    openssl &&\
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openssl && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /work/conflux/target/release/conflux /bin/conflux
+RUN ulimit -n 10000
 
 WORKDIR /root
 
-COPY ./cfxrun/scripts/package.json .
+COPY --from=builder /work/conflux/run/* ./run/
+COPY --from=builder /work/conflux/target/release/conflux ./run/conflux
+COPY prepare-config.sh .
 
-COPY --from=node_modules /root/node_modules /root/node_modules
-
-COPY ./cfxrun ./run
+RUN chmod +x prepare-config.sh && ./prepare-config.sh
 
 WORKDIR /root/run
-RUN chmod +x start.sh conflux.sh gene_account.sh
 
-EXPOSE 12535 12536 12537 12538 12539 32323 32525
-ENTRYPOINT [ "./start.sh" ]
+ENTRYPOINT ["./conflux", "--config", "conflux.toml"]
