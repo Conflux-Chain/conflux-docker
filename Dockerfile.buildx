@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM rust:1.79.0-slim AS builder
+FROM --platform=$BUILDPLATFORM rust:1.77.0-slim AS builder
 ARG VERSION
 
 RUN apt-get update && apt-get install -y \

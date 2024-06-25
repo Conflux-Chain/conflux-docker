@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM rust:1.79.0-slim AS builder
+FROM --platform=$BUILDPLATFORM rust:1.77.0-slim AS builder
 ARG VERSION
 
 RUN apt-get update && apt-get install -y \
@@ -18,6 +18,16 @@ WORKDIR /work/conflux
 
 RUN export CC=clang && export CXX=clang++ && cargo build --release
 
+FROM node:18-slim AS node_modules
+
+WORKDIR /root
+
+COPY ./cfxrun/scripts/package.json .
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    build-essential && \
+    npm install
 
 FROM node:18-slim
 
@@ -25,9 +35,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl &&\
     rm -rf /var/lib/apt/lists/*
 
-COPY ./cfxrun/scripts/package.json .
+COPY --from=node_modules /root/node_modules ./node_modules
 
-RUN npm install
+COPY ./cfxrun/scripts/package.json .
 
 COPY --from=builder /work/conflux/target/release/conflux /bin/conflux
 
