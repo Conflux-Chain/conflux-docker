@@ -3,18 +3,18 @@
 Conflux-rust is a Rust implementation of the Conflux protocol.
 This is Conflux-rust's docker image.
 
-**NOTE: From v2.0 the docker image's default config file is renamed from `default.toml` to `conflux.toml`**
+**NOTE: From v2.0 the docker image's default config file is renamed from `default.toml` to `conflux.toml`**, if you want mount your own config file, please rename it to `conflux.toml`.
 **NOTE: If you want use your own config file, need manually add this option `dev_pos_private_key_encryption_password = "your-pos-pwd"`**
 
 ## Tags
 
 [Current tags](https://hub.docker.com/r/confluxchain/conflux-rust/tags)
 
-`Warning`: These tags image's `conflux.toml` will config a independent chain with 10 genesis accounts (each with 1000 CFX) and all unlocked, you can use it as local Dapp develop environment. 
+`Warning`: These `default tags` image's `conflux.toml` will config a independent chain with 10 genesis accounts (each with 1000 CFX) and all unlocked, you can use it as local Dapp develop environment. 
 
 **`Note`: the unlock process maybe need one or two minutes.**
 
-**If you want run a `mainnet` or `testnet` node, you can use the `x.x.x-mainnet` or `x.x.x-testnet` tag.**
+**If you want run a `mainnet` or `testnet` node, you should use the `x.x.x-mainnet` or `x.x.x-testnet` tag.**
 
 ## How to run
 
