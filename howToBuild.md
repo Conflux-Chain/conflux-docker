@@ -11,14 +11,14 @@ Dev Image is used to run a Conflux local node, with default config 10 test accou
 ## Mainnet
 
 1. Download binary from Github release page: `make download-binary TAG=2.0.2`
-2. Build image: `make build-mainnet TAG=2.0.2`
-3. Push to DockerHub: `make push-mainnet TAG=2.0.2`
+2. Build image: `make build-release TAG=2.0.2-mainnet`
+3. Push to DockerHub: `make push-release TAG=2.0.2-mainnet`
 
 ## Testnet
 
 1. Download binary from Github release page: `make download-binary TAG=2.0.2-testnet`
-2. Build image: `make build-testnet TAG=2.0.2`
-3. Push to DockerHub: `make push-testnet TAG=2.0.2`
+2. Build image: `make build-release TAG=2.0.2-testnet`
+3. Push to DockerHub: `make push-release TAG=2.0.2-testnet`
 
 ## Buildx
 
