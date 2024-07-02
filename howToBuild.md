@@ -28,7 +28,6 @@ To create images for linux/arm64 and linux/amd64 platforms using Docker buildx, 
 2. build local images(build image and load to docker) : `make buildx-load TAG=2.4.0-testnet`
 3. build multi-platform images and push to dockerHub: `make buildx-push TAG=2.4.0-testnet`
 
-
 ## Buildx for dev node
 
 dev node should use the mainnet tag to build

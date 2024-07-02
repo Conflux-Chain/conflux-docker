@@ -1,3 +1,4 @@
+#!/bin/sh
 # Rename config file to conflux.toml
 if [ -f "/root/run/hydra.toml" ];then
   mv /root/run/hydra.toml /root/run/conflux.toml
