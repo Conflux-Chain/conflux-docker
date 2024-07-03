@@ -18,6 +18,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+       
+      - name: Remove v prefix
+        id: remove_prefix
+        env:
+          TAG_NAME: ${{ steps.extract_tag.outputs.TAG_NAME }}
+        run: echo "CLEANED_TAG_NAME=${TAG_NAME#v}" >> $GITHUB_OUTPUT
+        
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -27,4 +34,4 @@ jobs:
           file: ./Dockerfile.buildx
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: confluxchain/conflux-rust:${{  github.ref_name }}
+          tags: confluxchain/conflux-rust:${{ steps.remove_prefix.outputs.CLEANED_TAG_NAME }}

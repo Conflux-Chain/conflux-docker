@@ -27,7 +27,7 @@ jobs:
           TAG_NAME=${GITHUB_REF#refs/tags/}
           CLEANED_TAG_NAME=${TAG_NAME#v}
           CLEANED_TAG_NAME=${CLEANED_TAG_NAME%-mainnet}
-          echo "::set-output name=CLEANED_TAG_NAME::${CLEANED_TAG_NAME}"
+          echo "CLEANED_TAG_NAME::${CLEANED_TAG_NAME}" >> $GITHUB_OUTPUT
 
       - name: Build and push
         uses: docker/build-push-action@v6

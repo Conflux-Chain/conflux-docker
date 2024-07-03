@@ -25,7 +25,7 @@ jobs:
         id: remove_prefix
         env:
           TAG_NAME: ${{ steps.extract_tag.outputs.TAG_NAME }}
-        run: echo "::set-output name=CLEANED_TAG_NAME::${TAG_NAME#v}"
+        run: echo "CLEANED_TAG_NAME=${TAG_NAME#v}" >> $GITHUB_OUTPUT
         
       - name: Build and push
         uses: docker/build-push-action@v6
