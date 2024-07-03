@@ -3,6 +3,7 @@ name: main network docker image build
 on:
   push:
     tags:
+      - 'v*'
       - '!v*-mainnet'
       - '!v*-testnet'
 
