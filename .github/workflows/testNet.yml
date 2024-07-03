@@ -27,4 +27,4 @@ jobs:
           file: ./Dockerfile.buildx
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/conflux-rust:${{  github.ref_name }}
+          tags: confluxchain/conflux-rust:${{  github.ref_name }}
