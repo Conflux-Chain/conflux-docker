@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /work
 
-RUN git clone -b v${VERSION} --single-branch --depth 1 https://github.com/Conflux-Chain/conflux-rust.git conflux 
+RUN git clone -b ${VERSION} --single-branch --depth 1 https://github.com/Conflux-Chain/conflux-rust.git conflux 
 
 WORKDIR /work/conflux
 

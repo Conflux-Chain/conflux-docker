@@ -38,20 +38,20 @@ download-binary:
 	cp conflux-binary/run/conflux cfxrun/conflux
 
 buildx:
-	docker buildx build -f Dockerfile.buildx --platform=linux/arm64,linux/amd64 --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 
+	docker buildx build -f Dockerfile.buildx --platform=linux/arm64,linux/amd64 --build-arg="VERSION=v${TAG}" -t confluxchain/conflux-rust:${TAG} . 
 
 buildx-load:
-	docker buildx build -f Dockerfile.buildx --load --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 
+	docker buildx build -f Dockerfile.buildx --load --build-arg="VERSION=v${TAG}" -t confluxchain/conflux-rust:v${TAG} . 
 
 buildx-push:
-	docker buildx build -f Dockerfile.buildx --push --platform=linux/arm64,linux/amd64 --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 
+	docker buildx build -f Dockerfile.buildx --push --platform=linux/arm64,linux/amd64 --build-arg="VERSION=v${TAG}" -t confluxchain/conflux-rust:${TAG} . 
 
 
 buildx-dev:
-	docker buildx build -f Dockerfile.dev.buildx --platform=linux/arm64,linux/amd64 --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 
+	docker buildx build -f Dockerfile.dev.buildx --platform=linux/arm64,linux/amd64 --build-arg="VERSION=v${TAG}" -t confluxchain/conflux-rust:${TAG} . 
 
 buildx-dev-load:
-	docker buildx build -f Dockerfile.dev.buildx --load --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} . 
+	docker buildx build -f Dockerfile.dev.buildx --load --build-arg="VERSION=v${TAG}" -t confluxchain/conflux-rust:${TAG} . 
 
 buildx-dev-push:
-	docker buildx build -f Dockerfile.dev.buildx --push --platform=linux/arm64,linux/amd64 --build-arg="VERSION=${TAG}" -t confluxchain/conflux-rust:${TAG} .
+	docker buildx build -f Dockerfile.dev.buildx --push --platform=linux/arm64,linux/amd64 --build-arg="VERSION=v${TAG}" -t confluxchain/conflux-rust:${TAG} .
