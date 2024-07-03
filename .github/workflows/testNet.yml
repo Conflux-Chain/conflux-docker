@@ -34,4 +34,4 @@ jobs:
           file: ./Dockerfile.buildx
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: confluxchain/conflux-rust:${VERSION}
+          tags: confluxchain/conflux-rust:${{steps.remove_prefix.outputs.VERSION }}
