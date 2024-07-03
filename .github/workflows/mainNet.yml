@@ -27,14 +27,14 @@ jobs:
           TAG_NAME=${GITHUB_REF#refs/tags/}
           CLEANED_TAG_NAME=${TAG_NAME#v}
           CLEANED_TAG_NAME=${CLEANED_TAG_NAME%-mainnet}
-          echo "CLEANED_TAG_NAME::${CLEANED_TAG_NAME}" >> $GITHUB_OUTPUT
+          echo "CLEANED_TAG_NAME::${CLEANED_TAG_NAME}" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           build-args: |
-            VERSION=${{ steps.remove_suffix.outputs.CLEANED_TAG_NAME }
+            VERSION=${{ CLEANED_TAG_NAME }
           file: ./Dockerfile.buildx
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: confluxchain/conflux-rust:${{ steps.remove_suffix.outputs.CLEANED_TAG_NAME }}-mainnet
+          tags: confluxchain/conflux-rust:${{ CLEANED_TAG_NAME }}-mainnet

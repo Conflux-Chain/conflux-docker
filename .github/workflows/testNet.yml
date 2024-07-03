@@ -23,7 +23,7 @@ jobs:
         id: remove_prefix
         env:
           TAG_NAME: ${{ steps.extract_tag.outputs.TAG_NAME }}
-        run: echo "CLEANED_TAG_NAME=${TAG_NAME#v}" >> $GITHUB_OUTPUT
+        run: echo "CLEANED_TAG_NAME=${TAG_NAME#v}" >> $CLEANED_TAG_NAME
         
 
       - name: Build and push
@@ -34,4 +34,4 @@ jobs:
           file: ./Dockerfile.buildx
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: confluxchain/conflux-rust:${{ steps.remove_prefix.outputs.CLEANED_TAG_NAME }}
+          tags: confluxchain/conflux-rust:${{ CLEANED_TAG_NAME }}
