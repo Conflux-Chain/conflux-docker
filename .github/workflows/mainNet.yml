@@ -33,8 +33,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           build-args: |
-            VERSION=${{ CLEANED_TAG_NAME }
+            VERSION=${CLEANED_TAG_NAME}
           file: ./Dockerfile.buildx
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: confluxchain/conflux-rust:${{ CLEANED_TAG_NAME }}-mainnet
+          tags: confluxchain/conflux-rust:${CLEANED_TAG_NAME}-mainnet
