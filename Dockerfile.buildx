@@ -20,7 +20,7 @@ RUN export CC=clang && export CXX=clang++ && cargo build --release
 
 
 
-FROM ubuntu:24.10
+FROM --platform=$BUILDPLATFORM  ubuntu:24.10
 
 ENV RUST_BACKTRACE=1
 

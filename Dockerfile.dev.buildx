@@ -18,7 +18,7 @@ WORKDIR /work/conflux
 
 RUN export CC=clang && export CXX=clang++ && cargo build --release
 
-FROM node:18-slim AS node_modules
+FROM --platform=$BUILDPLATFORM  node:18-slim AS node_modules
 
 WORKDIR /root
 
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential && \
     npm install
 
-FROM node:18-slim
+FROM --platform=$BUILDPLATFORM  node:18-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl &&\
