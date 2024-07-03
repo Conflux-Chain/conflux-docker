@@ -23,8 +23,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           build-args: |
-            VERSION:${{ steps.branch_name.outputs.SOURCE_TAG }}
+            VERSION:${{  github.ref_name }}
           file: ./Dockerfile.buildx
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/conflux-rust:${{ steps.branch_name.outputs.SOURCE_TAG }}-testnet
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/conflux-rust:${{  github.ref_name }}
