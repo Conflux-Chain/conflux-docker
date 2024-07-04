@@ -159,7 +159,7 @@ jsonrpc_http_eth_port=8545
 # `safe` only includes `cfx` and `pubsub`, `txpool`.
 #
 public_rpc_apis = "all"
-public_evm_rpc_apis = "evm"
+public_evm_rpc_apis = "evm,ethdebug"
 # Specify the filter life time in seconds, only this option is set, the filter related RPC methods will be available.
 poll_lifetime_in_seconds = 600
 
@@ -542,9 +542,37 @@ poll_lifetime_in_seconds = 600
 # 1029 for Tethys
 #
 chain_id = 1
-node_table_promotion_timeout_s = 9600
+
 
 # The EVM chain ID of Conflux Network (EVM space)
 # 1030 for Tethys
 #
 evm_chain_id = 71
+
+node_table_promotion_timeout_s = 9600
+
+# cips enable configuration
+
+# v2.0 cips: pos + espace
+hydra_transition_number = 5
+hydra_transition_height = 5
+cip43_init_end_number = 5
+pos_reference_enable_height = 5
+
+# v2.1
+dao_vote_transition_number = 6
+dao_vote_transition_height = 6
+cip78_patch_transition_number = 6
+cip90_transition_height = 6
+cip90_transition_number = 6
+cip105_transition_number = 6
+
+# v2.3
+cip107_transition_number = 7
+cip112_transition_height = 7
+cip118_transition_number = 7
+cip119_transition_number = 7
+
+# v2.4 cips: 1559, 137 and others
+cip1559_transition_height = 10
+cancun_opcodes_transition_number = 10
