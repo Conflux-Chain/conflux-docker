@@ -45,3 +45,12 @@ next_hardfork_transition_height=10  # cip130, cip133
 cip1559_transition_height=10
 cancun_opcodes_transition_number=10
 ```
+
+## How to generate pos_config files
+
+1. (use conflux-rust compile binary ./target/release/pos-genesis-tool) Run `./target/release/pos-genesis-tool random --initial-seed=0000000000000000000000000000000000000000000000000000000000000000  --num-validator=1 --num-genesis-validator=1 --chain-id=1` to generate PoS genesis data.
+2. Use the content in the generated `waypoint_config` to configure the field `base.waypoint.from_config` in the pos configuration file template `fullnode-configs/pos_config.yaml`.
+3. Create directory `pos_config`, and put `genesis_file`, `initial_nodes.json`, and `pos_config.yaml` in it.
+4. Move the corresponding private key within `private_keys` to `pos_config`, and rename it to `pos_key`.
+5. Default pos_key password is empty.
+

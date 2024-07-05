@@ -1,0 +1,18 @@
+
+base:
+  #data_dir: ./pos_db
+  role: validator
+  waypoint:
+    from_config: 0:214f3881979cafee76c8bb516f2270fed3801c0a858a533e1a2079f294e47f3f
+consensus:
+  round_initial_timeout_ms: 60000
+  safety_rules:
+    service:
+      type: local
+execution:
+  genesis_file_location: ./genesis_file
+logger:
+  file: ./log/pos.log
+  level: INFO
+#storage:
+  #dir: ./pos_db/db

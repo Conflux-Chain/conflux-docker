@@ -566,6 +566,7 @@ cip78_patch_transition_number = 6
 cip90_transition_height = 6
 cip90_transition_number = 6
 cip105_transition_number = 6
+sigma_fix_transition_number = 6
 
 # v2.3
 cip107_transition_number = 7
