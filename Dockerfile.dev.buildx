@@ -43,8 +43,6 @@ COPY --from=builder /work/conflux/target/release/conflux /bin/conflux
 
 WORKDIR /root
 
-
-
 COPY ./cfxrun ./run
 
 WORKDIR /root/run

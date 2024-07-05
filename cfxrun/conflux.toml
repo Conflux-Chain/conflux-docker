@@ -576,3 +576,5 @@ cip119_transition_number = 7
 # v2.4 cips: 1559, 137 and others
 cip1559_transition_height = 10
 cancun_opcodes_transition_number = 10
+next_hardfork_transition_number=10  # cip131, cip132, cip133b, cip137, cip144, cip145
+next_hardfork_transition_height=10  # cip130, cip133

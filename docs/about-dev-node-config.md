@@ -39,6 +39,9 @@ cip118_transition_number=7
 cip119_transition_number=7
 
 # v2.4 cips: 1559, 137 and others
+next_hardfork_transition_number=10  # cip131, cip132, cip133b, cip137, cip144, cip145
+next_hardfork_transition_height=10  # cip130, cip133
+
 cip1559_transition_height=10
 cancun_opcodes_transition_number=10
 ```
