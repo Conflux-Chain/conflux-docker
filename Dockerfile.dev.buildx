@@ -18,7 +18,7 @@ WORKDIR /work/conflux
 
 RUN export CC=clang && export CXX=clang++ && cargo build --release
 
-FROM  node:18-slim AS node_modules
+FROM  node:22-slim AS node_modules
 
 WORKDIR /root
 
@@ -29,23 +29,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential && \
     npm install
 
-FROM  node:18-slim
+FROM  node:22-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl &&\
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=node_modules /root/node_modules ./node_modules
 
-COPY ./cfxrun/scripts/package.json .
 
 COPY --from=builder /work/conflux/target/release/conflux /bin/conflux
+COPY --from=builder /work/conflux/target/release/cfxkey /bin/cfxkey
+COPY --from=builder /work/conflux/target/release/pos-genesis-tool  /bin/pos-genesis-tool
+COPY --from=builder /work/conflux/target/release/cfx-gen-dot /bin/cfx-gen-dot
+COPY --from=builder /work/conflux/target/release/cfxstore /bin/cfxstore
 
-WORKDIR /root
-
-COPY ./cfxrun ./run
 
 WORKDIR /root/run
+COPY ./cfxrun .
+
+COPY --from=node_modules /root/node_modules ./scripts/node_modules
+
 RUN chmod +x start.sh conflux.sh gene_account.sh
 
 EXPOSE 12535 12536 12537 12538 12539 32323 32525

@@ -1,11 +1,10 @@
-name: dev node docker image build
+name: main and test network docker image build
 
 on:
   push:
     tags:
-      - "v*"
-      - "!v*-mainnet"
-      - "!v*-testnet"
+      - "v*-mainnet"
+      - "v*-testnet"
 
 env:
   REGISTRY_IMAGE: confluxchain/conflux-rust
@@ -25,7 +24,7 @@ jobs:
         run: |
           platform=${{ matrix.platform }}
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
-      
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
@@ -34,7 +33,7 @@ jobs:
           tags: |
             # get the tag version eg: v1.0.0 => 1.0.0
             type=semver,pattern={{version}}
-      
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -50,8 +49,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           build-args: |
-            VERSION=v${{ steps.meta.outputs.version }}
-          file: ./Dockerfile.dev.buildx
+            VERSION=v{{ steps.meta.outputs.major }}.{{ steps.meta.outputs.minor }}.{{ steps.meta.outputs.patch }}
+          file: ./Dockerfile.buildx
           platforms: ${{ steps.meta.outputs.version }}
           tags: ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }},${{ env.REGISTRY_IMAGE }}:latest
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
