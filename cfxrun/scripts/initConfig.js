@@ -1,8 +1,9 @@
-const TOML = require('@iarna/toml');
-const fs = require('fs');
-const {PrivateKeyAccount: Account, format} = require('js-conflux-sdk');
+import TOML from '@iarna/toml'
+import fs from 'node:fs' 
+import {PrivateKeyAccount as Account, format} from 'js-conflux-sdk'
+import { createPosConfig } from './createPosConfig.js';
 
-function initialConfig() {
+async function initialConfig() {
     const configStr = fs.readFileSync("../conflux.toml", "utf-8");
     const config = TOML.parse(configStr);
     
@@ -27,7 +28,9 @@ function initialConfig() {
     
     // write config back
     fs.writeFileSync("../conflux.toml", TOML.stringify(config));
+
+    await createPosConfig(config.chain_id)
     console.log('CFXDOCKER: config file set success !');
 }
 
-initialConfig();
+await initialConfig();
