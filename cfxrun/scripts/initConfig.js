@@ -11,8 +11,6 @@ async function initialConfig() {
       // If the mode is not Docker, refrain from altering the conflux.toml file or any other elements, including comments or spaces.
       const stream = fs.createWriteStream("../conflux.toml", {flags: 'a'});
       
-      stream.write("\n");
-      
       if (!config.chain_id) {
         config.chain_id = parseInt(Math.random() * 10000);
       
@@ -21,7 +19,7 @@ async function initialConfig() {
             config.chain_id
         );
       
-        stream.write(`chain_id = ${config.chain_id}\n`);
+        stream.write(`\nchain_id = ${config.chain_id}\n`);
       }
       if (!config.evm_chain_id) {
         config.evm_chain_id = config.chain_id + 1;
@@ -31,7 +29,7 @@ async function initialConfig() {
             config.evm_chain_id
         );
       
-        stream.write(`evm_chain_id = ${config.evm_chain_id}\n`);
+        stream.write(`\nevm_chain_id = ${config.evm_chain_id}\n`);
       }
       
       // The createPosConfig function must always be executed to generate the pos configuration.
