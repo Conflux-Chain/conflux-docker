@@ -6,11 +6,40 @@ import { createPosConfig } from './createPosConfig.js';
 async function initialConfig() {
     const configStr = fs.readFileSync("../conflux.toml", "utf-8");
     const config = TOML.parse(configStr);
-    
-    // if "mode" is not docker leave it alone
-    if (config.mode !== 'docker') {  
-        return;
+
+    if (config.mode !== "docker") {
+      // If the mode is not Docker, refrain from altering the conflux.toml file or any other elements, including comments or spaces.
+      const stream = fs.createWriteStream("../conflux.toml", {flags: 'a'});
+      
+      stream.write("\n");
+      
+      if (!config.chain_id) {
+        config.chain_id = parseInt(Math.random() * 10000);
+      
+        console.warn(
+          "chain_id not found in conflux.toml, generate a random one: " +
+            config.chain_id
+        );
+      
+        stream.write(`chain_id = ${config.chain_id}\n`);
+      }
+      if (!config.evm_chain_id) {
+        config.evm_chain_id = config.chain_id + 1;
+      
+        console.warn(
+          "evm_chain_id not found in conflux.toml, generate a one: " +
+            config.evm_chain_id
+        );
+      
+        stream.write(`evm_chain_id = ${config.evm_chain_id}\n`);
+      }
+      
+      // The createPosConfig function must always be executed to generate the pos configuration.
+      stream.end();
+      await createPosConfig(config.chain_id);
+      return;
     }
+
     config.mode = 'dev';
     
     // generate a random chain_id
