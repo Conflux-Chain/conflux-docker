@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "tx.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
+    "execa": "^9.3.0",
     "js-conflux-sdk": "^2.4.5",
-    "toml": "^3.0.0"
+    "toml": "^3.0.0",
+    "yaml": "^2.4.5"
   }
 }

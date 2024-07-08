@@ -18,13 +18,7 @@ jobs:
         platform:
           - linux/amd64
           - linux/arm64
-
     steps:
-      - name: Prepare
-        run: |
-          platform=${{ matrix.platform }}
-          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
-
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
@@ -33,6 +27,16 @@ jobs:
           tags: |
             # get the tag version eg: v1.0.0 => 1.0.0
             type=semver,pattern={{version}}
+
+            type=semver,pattern={{major}}.{{minor}}.{{patch}}
+
+      - name: Prepare
+        id: prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
+          VERSION=${{ steps.meta.outputs.version }}
+          [[ ${VERSION} == *-testnet* ]] && echo "CONFLUX_GIT_TAG=${VERSION}" >> ${GITHUB_OUTPUT} || echo "CONFLUX_GIT_TAG=${VERSION%-mainnet}" >> ${GITHUB_OUTPUT}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -49,10 +53,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           build-args: |
-            VERSION=v{{ steps.meta.outputs.major }}.{{ steps.meta.outputs.minor }}.{{ steps.meta.outputs.patch }}
+            VERSION=v${{ steps.prepare.outputs.CONFLUX_GIT_TAG }}
           file: ./Dockerfile.buildx
           platforms: ${{ matrix.platform }}
-          tags: ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
       - name: Export digest
@@ -93,7 +96,7 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Create manifest list and push

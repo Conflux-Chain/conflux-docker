@@ -1,4 +1,4 @@
-const {providerFactory: provider} = require('js-conflux-sdk');
+import {providerFactory as provider} from 'js-conflux-sdk';
 
 const client = provider({url: 'http://localhost:12537'});
 

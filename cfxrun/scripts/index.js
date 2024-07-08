@@ -1,6 +1,7 @@
-const {Conflux, providerFactory: provider, Drip} = require('js-conflux-sdk');
-const TOML = require('@iarna/toml');
-const fs = require('fs');
+import {Conflux, providerFactory as provider, Drip} from 'js-conflux-sdk';
+import fs from 'node:fs'
+import TOML from '@iarna/toml';
+
 const PASSWORD = '123456';
 const URL = "http://localhost:12537";
 const client = provider({url: URL});
