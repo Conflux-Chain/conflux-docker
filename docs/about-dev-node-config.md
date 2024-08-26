@@ -26,7 +26,6 @@ pos_reference_enable_height = 5
 # v2.1
 dao_vote_transition_number = 6
 dao_vote_transition_height = 6
-cip43_init_end_number = 6
 cip78_patch_transition_number = 6
 cip90_transition_height = 6
 cip90_transition_number = 6

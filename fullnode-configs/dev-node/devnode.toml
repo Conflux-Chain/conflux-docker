@@ -1,0 +1,60 @@
+node_type = "archive"
+mode = "dev"
+dev_block_interval_ms = 500
+mining_author="0x1386b4185a223ef49592233b69291bbe5a80c527"
+persist_block_number_index = true
+persist_tx_index = true
+additional_maintained_snapshot_count = 100
+executive_trace = true
+
+poll_lifetime_in_seconds = 60 # to open core space filter related methods
+
+log_conf="log.yaml"
+
+# jsonrpc_ws_port=12535
+# jsonrpc_tcp_port=12536
+jsonrpc_http_port=12537
+# jsonrpc_local_tcp_port=12538
+jsonrpc_local_http_port=12539
+# jsonrpc_local_ws_port=12540
+jsonrpc_http_eth_port=8545
+# jsonrpc_ws_eth_port=8546
+
+# Specify the APIs available through the public JSON-RPC interfaces (HTTP, TCP, WebSocket)
+# using a comma-delimited list of API names.
+# Possible names are: all, safe, cfx, pos, debug, pubsub, test, trace, txpool.
+# `safe` only includes `cfx` and `pubsub`, `txpool`.
+#
+public_rpc_apis = "all"
+public_evm_rpc_apis = "evm,ethdebug"
+
+chain_id = 1024
+evm_chain_id = 1025
+
+
+# v2.0 cips: pos + espace
+hydra_transition_number = 5
+hydra_transition_height = 5
+cip43_init_end_number = 5
+pos_reference_enable_height = 5
+
+# v2.1
+dao_vote_transition_number = 6
+dao_vote_transition_height = 6
+cip78_patch_transition_number = 6
+cip90_transition_height = 6
+cip90_transition_number = 6
+cip105_transition_number = 6
+
+# v2.3
+cip107_transition_number=7
+cip112_transition_height=7
+cip118_transition_number=7
+cip119_transition_number=7
+
+# v2.4 cips: 1559, 137 and others
+next_hardfork_transition_number=10  # cip131, cip132, cip133b, cip137, cip144, cip145
+next_hardfork_transition_height=10  # cip130, cip133
+
+cip1559_transition_height=10
+cancun_opcodes_transition_number=10
