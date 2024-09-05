@@ -9,7 +9,7 @@ clone:
 	git clone -b v${TAG} --single-branch --depth 1 https://github.com/Conflux-Chain/conflux-rust.git conflux
 
 build: 
-	docker build -f Dockerfile.slim -t confluxchain/conflux-rust:${TAG} .
+	docker build -f production/Dockerfile.slim -t confluxchain/conflux-rust:${TAG} .
 
 # host-build: 
 # 	docker build -t confluxchain/conflux-rust:${TAG} . --network host
@@ -24,7 +24,7 @@ push-release:
 	docker push confluxchain/conflux-rust:${TAG}
 
 build-node: 
-	docker build -f Dockerfile.node -t confluxchain/conflux-node:${TAG} .
+	docker build -f production/Dockerfile.node -t confluxchain/conflux-node:${TAG} .
 
 push-node:
 	docker push confluxchain/conflux-node:${TAG}

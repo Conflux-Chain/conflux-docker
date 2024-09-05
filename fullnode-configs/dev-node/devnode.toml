@@ -1,7 +1,7 @@
 node_type = "archive"
 mode = "dev"
 dev_block_interval_ms = 500
-mining_author="0x1386b4185a223ef49592233b69291bbe5a80c527"
+mining_author="0x1386b4185a223ef49592233b69291bbe5a80c527" # replace with your own address
 persist_block_number_index = true
 persist_tx_index = true
 additional_maintained_snapshot_count = 100
