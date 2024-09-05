@@ -36,10 +36,10 @@ docker pull confluxchain/conflux-rust:latest
 Step 2 run the image
 
 ```sh
-docker run -p 12537:12537 -p 12539:12539 --rm --name cfx-node confluxchain/conflux-rust:latest
+docker run -p 12537:12537 --rm --name cfx-node confluxchain/conflux-rust:latest
 ```
 
-After the container is running, you can use SDKs or RPC tools to connect to the local node, the RPC endpoint is `http://localhost:12539`.
+After the container is running, you can use SDKs or RPC tools to connect to the local node, the RPC endpoint is `http://localhost:12537`.
 
 **`Note`: the unlock process maybe need one or two minutes.**
 
@@ -75,6 +75,11 @@ docker run -p 12537:12537 -v /path-to-your-config-folder:/root/run --name cfx-no
 ```
 
 By this way, the node data and pos_key will be saved in the host folder `/path-to-your-config-folder`. You can also download the blockchain snapshot data from [Conflux Snapshot](https://doc.confluxnetwork.org/docs/general/run-a-node/snapshot-tool) to speed up the sync process.
+
+Note: Please choose correct release to download, and use the corresponding image tag. EG: 
+
+1. if you download `Conflux v2.4.0` release, you should use `confluxchain/conflux-rust:2.4.0-mainnet` tag.
+2. if you download `Conflux v2.4.0-testnet` release, you should use `confluxchain/conflux-rust:2.4.0-testnet` tag.
 
 ## Notes
 
