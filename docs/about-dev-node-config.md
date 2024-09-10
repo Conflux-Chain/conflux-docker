@@ -17,6 +17,14 @@
 ## how to enable cips
 
 ```toml
+default_transition_time = 1
+pos_reference_enable_height = 2
+cip1559_transition_height = 3
+```
+
+Or more granular control:
+
+```toml
 # v2.0 cips: pos + espace
 hydra_transition_number = 5
 hydra_transition_height = 5
