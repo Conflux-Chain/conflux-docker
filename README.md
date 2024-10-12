@@ -36,10 +36,10 @@ docker pull confluxchain/conflux-rust:latest
 Step 2 run the image
 
 ```sh
-docker run -p 12537:12537 --rm --name cfx-node confluxchain/conflux-rust:latest
+docker run -p 12537:12537 -p 8545:8545 --rm --name cfx-node confluxchain/conflux-rust:latest
 ```
 
-After the container is running, you can use SDKs or RPC tools to connect to the local node, the RPC endpoint is `http://localhost:12537`.
+After the container is running, you can use SDKs or RPC tools to connect to the local node, the CoreSpace RPC endpoint is `http://localhost:12537`, eSpace RPC endpoint is `http://localhost:8545`.
 
 **`Note`: the unlock process maybe need one or two minutes.**
 
@@ -57,7 +57,7 @@ You can also check [How to run an Independent Chain](https://doc.confluxnetwork.
 To run a mainnet or testnet node, you can use the `x.x.x-mainnet` or `x.x.x-testnet` tag.
 
 ```sh
-docker run -p 12537:12537 --name cfx-node confluxchain/conflux-rust:x.x.x-mainnet
+docker run -p 12537:12537 -p 8545:8545 --name cfx-node confluxchain/conflux-rust:x.x.x-mainnet
 ```
 
 If everything is ok, the node will start syncing the mainnet or testnet chain data. Which will take some time(one or two month).
@@ -71,7 +71,7 @@ By default the node data and pos_key will be saved in the container, if you want
 ```sh
 # replace /path-to-your-config-folder with your config folder path
 # replace x.x.x-mainnet with the tag you want to use
-docker run -p 12537:12537 -v /path-to-your-config-folder:/root/run --name cfx-node confluxchain/conflux-rust:2.4.0-mainnet 
+docker run -p 12537:12537 -p 8545:8545 -v /path-to-your-config-folder:/root/run --name cfx-node confluxchain/conflux-rust:2.4.0-mainnet 
 ```
 
 By this way, the node data and pos_key will be saved in the host folder `/path-to-your-config-folder`. You can also download the blockchain snapshot data from [Conflux Snapshot](https://doc.confluxnetwork.org/docs/general/run-a-node/snapshot-tool) to speed up the sync process.
