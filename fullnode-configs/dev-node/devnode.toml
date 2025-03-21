@@ -31,20 +31,25 @@ public_evm_rpc_apis = "evm,ethdebug"
 chain_id = 1024
 evm_chain_id = 1025
 
+# v1.1
+tanzanite_transition_height = 4
 
 # v2.0 cips: pos + espace
 hydra_transition_number = 5
 hydra_transition_height = 5
 cip43_init_end_number = 5
 pos_reference_enable_height = 5
+# cip78_patch_transition_number = 5
+# cip90_transition_height = 5
+# cip90_transition_number = 5
 
 # v2.1
 dao_vote_transition_number = 6
 dao_vote_transition_height = 6
-cip78_patch_transition_number = 6
-cip90_transition_height = 6
-cip90_transition_number = 6
-cip105_transition_number = 6
+# cip105_transition_number = 6
+
+# v2.2
+sigma_fix_transition_number = 6
 
 # v2.3
 cip107_transition_number=7
@@ -56,5 +61,12 @@ cip119_transition_number=7
 next_hardfork_transition_number=10  # cip131, cip132, cip133b, cip137, cip144, cip145
 next_hardfork_transition_height=10  # cip130, cip133
 
-cip1559_transition_height=10
-cancun_opcodes_transition_number=10
+# cip1559_transition_height=10
+# cancun_opcodes_transition_number=10
+
+# v2.5
+c2_fix_transition_height=11
+
+# v2.6
+eoa_code_transition_height=12
+# align_evm_transition_height=12
