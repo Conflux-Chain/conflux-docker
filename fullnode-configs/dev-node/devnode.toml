@@ -58,8 +58,8 @@ cip118_transition_number=7
 cip119_transition_number=7
 
 # v2.4 cips: 1559, 137 and others
-next_hardfork_transition_number=10  # cip131, cip132, cip133b, cip137, cip144, cip145
-next_hardfork_transition_height=10  # cip130, cip133
+base_fee_burn_transition_number=10  # cip131, cip132, cip133b, cip137, cip144, cip145
+base_fee_burn_transition_height=10  # cip130, cip133
 
 # cip1559_transition_height=10
 # cancun_opcodes_transition_number=10
@@ -67,6 +67,6 @@ next_hardfork_transition_height=10  # cip130, cip133
 # v2.5
 c2_fix_transition_height=11
 
-# v2.6
+# v3.0
 eoa_code_transition_height=12
 # align_evm_transition_height=12
