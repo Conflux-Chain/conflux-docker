@@ -3,7 +3,9 @@ scripts/nohup.out
 conflux
 tests
 conflux_linux_*.zip
+conflux-*
 conflux-binary
 cfxrun/conflux
 .vscode
 tmp
+.DS_Store

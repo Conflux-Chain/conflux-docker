@@ -31,10 +31,12 @@ push-node:
 
 download-binary: 
 	rm -rf conflux_linux_*.zip
+	rm -rf conflux-*.tar.gz
 	rm -rf conflux-binary
 	rm -f cfxrun/conflux
-	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux_linux_glibc2.27_x64_v${TAG}.zip
-	unzip conflux_linux_glibc2.27_x64_v${TAG}.zip -d conflux-binary
+	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux-v${TAG}-linux-x86_64-glibc2.27.tar.gz
+	mkdir -p conflux-binary/run
+	tar -xzf conflux-v${TAG}-linux-x86_64-glibc2.27.tar.gz -C conflux-binary/run
 	cp conflux-binary/run/conflux cfxrun/conflux
 
 buildx:
