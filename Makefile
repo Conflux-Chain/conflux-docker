@@ -35,7 +35,7 @@ download-binary:
 	rm -rf conflux-binary
 	rm -f cfxrun/conflux
 	rm -f cfxrun/pos_config/*
-# 	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux-v${TAG}-linux-x86_64-glibc2.27.zip
+ 	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux-v${TAG}-linux-x86_64-glibc2.27.zip
 	mkdir -p conflux-binary/run
 # 	tar -xzf conflux-v${TAG}-linux-x86_64-glibc2.27.tar.gz -C conflux-binary/run
 	unzip -o conflux-v${TAG}-linux-x86_64-glibc2.27.zip -d conflux-binary
