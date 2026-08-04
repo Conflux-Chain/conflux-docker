@@ -34,10 +34,13 @@ download-binary:
 	rm -rf conflux-*.tar.gz
 	rm -rf conflux-binary
 	rm -f cfxrun/conflux
-	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux-v${TAG}-linux-x86_64-glibc2.27.tar.gz
+	rm -f cfxrun/pos_config/*
+# 	wget https://github.com/Conflux-Chain/conflux-rust/releases/download/v${TAG}/conflux-v${TAG}-linux-x86_64-glibc2.27.zip
 	mkdir -p conflux-binary/run
-	tar -xzf conflux-v${TAG}-linux-x86_64-glibc2.27.tar.gz -C conflux-binary/run
+# 	tar -xzf conflux-v${TAG}-linux-x86_64-glibc2.27.tar.gz -C conflux-binary/run
+	unzip -o conflux-v${TAG}-linux-x86_64-glibc2.27.zip -d conflux-binary
 	cp conflux-binary/run/conflux cfxrun/conflux
+	cp conflux-binary/run/pos_config/* cfxrun/pos_config/
 
 buildx:
 	docker buildx build -f Dockerfile.buildx --platform=linux/arm64,linux/amd64 --build-arg="VERSION=v${TAG}" -t confluxchain/conflux-rust:${TAG} . 

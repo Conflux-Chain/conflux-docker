@@ -6,6 +6,7 @@ conflux_linux_*.zip
 conflux-*
 conflux-binary
 cfxrun/conflux
+cfxrun/pos_config/*
 .vscode
 tmp
 .DS_Store
